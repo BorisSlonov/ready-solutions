@@ -6,18 +6,18 @@ document.querySelector('.moveTo').appendChild(document.querySelector('.what-in__
 
 function equalHeight(group) {
     var tallest = 0;
-    group.each(function() {
+    group.each(function () {
         thisHeight = $(this).height();
-        if(thisHeight > tallest) {
+        if (thisHeight > tallest) {
             tallest = thisHeight;
         }
     });
     group.height(tallest);
 }
-$(document).ready(function(){
+$(document).ready(function () {
     equalHeight($(".prices__slide"));
     equalHeight($(".prices__item"));
-}); 
+});
 
 
 
@@ -347,93 +347,125 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-        // document.getElementsByClassName("calculator__flat-input")[0].value;
+
+
+        $(".calculator__button").click(function () {
+            let flatValue = document.getElementsByClassName("calculator__flat-input")[0].value;
+
+            if (flatValue.length < 1) {
+
+                alert('Введите площадь квартиры')
+
+
+            } else {
 
 
 
-        //modal window
-        var modal = document.getElementById("calc_counted");
-        var btn = document.getElementsByClassName("button calculator__button")[0];
-        var span = document.getElementsByClassName("close")[0];
-        btn.onclick = function () {
-            modal.style.display = "block";
-            var selectedPrice = document.getElementsByClassName("calculator__status calculator__status--active")[0].innerText;
-            var meters = document.getElementsByClassName("calculator__flat-input")[0].value;
-            var finCost = 0;
-            document.getElementsByClassName("flat_meters")[0].innerText = meters;
-            document.getElementsByClassName("flat_address")[0].innerText = document.getElementsByClassName("calculator__big-input")[0].value;
-            document.getElementsByClassName("flat_rooms")[0].innerText = document.getElementsByClassName("calculator__room calculator__room--active")[0].innerText;
-            var wall_check = document.getElementsByClassName("calc_walls");
-            var wall_color = document.getElementsByClassName("calculator__color calculator__walls calculator__color--active")[0].style.backgroundColor;
-            for (var i = 0; wall_check[i]; ++i) {
-                if (wall_check[i].checked) {
-                    console.log(wall_check[i].value.search("Обои под покраску"));
-                    if (wall_check[i].value.search("Обои под покраску") >= 0) {
-                        document.getElementsByClassName("flat_walls")[0].innerText = (wall_check[i].value + "(" + wall_color + ")");
-                        break;
+                //modal window
+                var modal = document.getElementById("calc_counted");
+                var btn = document.getElementsByClassName("button calculator__button")[0];
+                var span = document.getElementsByClassName("close")[0];
+                function openPopup() {
+                    modal.style.display = "block";
+                    var selectedPrice = document.getElementsByClassName("calculator__status calculator__status--active")[0].innerText;
+                    var meters = document.getElementsByClassName("calculator__flat-input")[0].value;
+                    var finCost = 0;
+                    document.getElementsByClassName("flat_meters")[0].innerText = meters;
+                    document.getElementsByClassName("flat_address")[0].innerText = document.getElementsByClassName("calculator__big-input")[0].value;
+                    document.getElementsByClassName("flat_rooms")[0].innerText = document.getElementsByClassName("calculator__room calculator__room--active")[0].innerText;
+                    var wall_check = document.getElementsByClassName("calc_walls");
+                    var wall_color = document.getElementsByClassName("calculator__color calculator__walls calculator__color--active")[0].style.backgroundColor;
+                    for (var i = 0; wall_check[i]; ++i) {
+                        if (wall_check[i].checked) {
+                            console.log(wall_check[i].value.search("Обои под покраску"));
+                            if (wall_check[i].value.search("Обои под покраску") >= 0) {
+                                document.getElementsByClassName("flat_walls")[0].innerText = (wall_check[i].value + "(" + wall_color + ")");
+                                break;
+                            }
+                            else {
+                                document.getElementsByClassName("flat_walls")[0].innerText = wall_check[i].value;
+                                break;
+                            }
+                        }
                     }
-                    else {
-                        document.getElementsByClassName("flat_walls")[0].innerText = wall_check[i].value;
-                        break;
+                    var floor_check = document.getElementsByClassName("calc_floor");
+                    var floor_color = document.getElementsByClassName("calculator__color calculator__floor calculator__color--active")[0].style.backgroundColor;
+                    for (var i = 0; floor_check[i]; ++i) {
+                        if (floor_check[i].checked) {
+                            if (floor_check[i].value.search("Ламинат") >= 0) {
+                                document.getElementsByClassName("flat_floor")[0].innerText = floor_check[i].value + "(" + floor_color + ")";
+                                break;
+                            }
+                            else {
+                                document.getElementsByClassName("flat_floor")[0].innerText = floor_check[i].value;
+                                break;
+                            }
+                        }
+                    }
+                    var door_check = document.getElementsByClassName("door_check");
+                    for (var i = 0; door_check[i]; ++i) {
+                        if (door_check[i].checked) {
+                            document.getElementsByClassName("flat_doors")[0].innerText = door_check[i].value;
+                            break;
+                        }
+                    }
+                    console.log(meters);
+                    console.log(selectedPrice);
+                    if (selectedPrice.search("Базовый") >= 0) {
+                        finCost = 7900 * parseInt(meters, 10);
+                        document.getElementsByClassName("chose_price")[0].innerText = "Базовый";
+                    }
+                    if (selectedPrice.search("Комфорт") >= 0) {
+                        finCost = 8900 * parseInt(meters, 10);
+                        document.getElementsByClassName("chose_price")[0].innerText = "Комфорт";
+                    }
+                    if (selectedPrice.search("Комфорт +") >= 0) {
+                        finCost = 10700 * parseInt(meters, 10);
+                        document.getElementsByClassName("chose_price")[0].innerText = "Комфорт +";
+                    }
+                    if (meters < 40) {
+                        var percent = finCost * 0.3;
+                        finCost += percent;
+                        document.getElementsByClassName("calculated_days")[0].innerText = 35;
+                    }
+                    if (meters > 40 && meters < 56) {
+                        document.getElementsByClassName("calculated_days")[0].innerText = 45;
+                    }
+                    if (meters > 55) {
+                        document.getElementsByClassName("calculated_days")[0].innerText = 60;
+                    }
+                    document.getElementsByClassName("counted_cost")[0].innerHTML = finCost;
+                }
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
                     }
                 }
+
+                openPopup();
+
+
+
+
             }
-            var floor_check = document.getElementsByClassName("calc_floor");
-            var floor_color = document.getElementsByClassName("calculator__color calculator__floor calculator__color--active")[0].style.backgroundColor;
-            for (var i = 0; floor_check[i]; ++i) {
-                if (floor_check[i].checked) {
-                    if (floor_check[i].value.search("Ламинат") >= 0) {
-                        document.getElementsByClassName("flat_floor")[0].innerText = floor_check[i].value + "(" + floor_color + ")";
-                        break;
-                    }
-                    else {
-                        document.getElementsByClassName("flat_floor")[0].innerText = floor_check[i].value;
-                        break;
-                    }
-                }
-            }
-            var door_check = document.getElementsByClassName("door_check");
-            for (var i = 0; door_check[i]; ++i) {
-                if (door_check[i].checked) {
-                    document.getElementsByClassName("flat_doors")[0].innerText = door_check[i].value;
-                    break;
-                }
-            }
-            console.log(meters);
-            console.log(selectedPrice);
-            if (selectedPrice.search("Базовый") >= 0) {
-                finCost = 7900 * parseInt(meters, 10);
-                document.getElementsByClassName("chose_price")[0].innerText = "Базовый";
-            }
-            if (selectedPrice.search("Комфорт") >= 0) {
-                finCost = 8900 * parseInt(meters, 10);
-                document.getElementsByClassName("chose_price")[0].innerText = "Комфорт";
-            }
-            if (selectedPrice.search("Комфорт +") >= 0) {
-                finCost = 10700 * parseInt(meters, 10);
-                document.getElementsByClassName("chose_price")[0].innerText = "Комфорт +";
-            }
-            if (meters < 40) {
-                var percent = finCost * 0.3;
-                finCost += percent;
-                document.getElementsByClassName("calculated_days")[0].innerText = 35;
-            }
-            if (meters > 40 && meters < 56) {
-                document.getElementsByClassName("calculated_days")[0].innerText = 45;
-            }
-            if (meters > 55) {
-                document.getElementsByClassName("calculated_days")[0].innerText = 60;
-            }
-            document.getElementsByClassName("counted_cost")[0].innerHTML = finCost;
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         var btnPDF = document.getElementsByClassName("button button--center btn-pdf")[0];
         btnPDF.onclick = function () {
