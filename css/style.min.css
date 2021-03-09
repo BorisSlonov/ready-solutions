@@ -825,6 +825,7 @@ footer {
 
 .prices__item div {
   margin-bottom: 0px;
+  display: flex;
 }
 
 .prices {
