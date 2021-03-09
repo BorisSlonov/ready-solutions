@@ -4,7 +4,20 @@ var scrollMoreOpen = 0;
 document.querySelector('.moveTo').appendChild(document.querySelector('.what-in__more'));
 
 
-
+function equalHeight(group) {
+    var tallest = 0;
+    group.each(function() {
+        thisHeight = $(this).height();
+        if(thisHeight > tallest) {
+            tallest = thisHeight;
+        }
+    });
+    group.height(tallest);
+}
+$(document).ready(function(){
+    equalHeight($(".prices__slide"));
+    equalHeight($(".prices__item"));
+}); 
 
 
 

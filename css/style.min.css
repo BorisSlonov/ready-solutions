@@ -841,7 +841,7 @@ footer {
 }
 
 .prices__slider {
-  margin-bottom: 142px;
+  margin-bottom: 20px;
   margin-top: 30px;
   display: -ms-flexbox;
   display: flex;
@@ -874,6 +874,10 @@ footer {
   }
 }
 
+.prices__slide {
+  width: calc(33% - 20px);
+}
+
 @media (max-width: 991px) {
   .prices__slide {
     width: calc(33% - 20px);
@@ -888,8 +892,6 @@ footer {
   /*background: #FDFDFD;
   border: 5px solid rgba(242, 204, 82, 0.3);*/
   padding: 35px;
-  width: 300px;
-  height: 500px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
