@@ -2467,6 +2467,8 @@ footer {
 @media (max-width: 767px) {
   .footer__copyright {
     font-size: 14px;
+    text-align: center;
+    margin-right: 0;
   }
 }
 
